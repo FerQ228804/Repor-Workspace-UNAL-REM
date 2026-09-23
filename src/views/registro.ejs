@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= etiqueta %></title>
+    <%- include("Partials/head") %>
+  </head>
+  <body>
+    <%- include("Partials/navigation") %>
+    
+    <main class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+
+      <div class="container mt-5">
+        <h1>Bienvenidos a la página de creación de usuario</h1>
+        <h2>Gestión de usuario</h2>
+
+        <!-- El mensaje de configuración del backend -->
+
+
+        <!-- FORMULARIO UNICO PARA EL DESENGLOBE DE LOS PASOS -->
+        <form action="/autenticacion/registro" method="POST" id="formRegistro">
+
+          <!--============ PASO 1 ===========-->
+          <div id="paso-1" class="paso-seccion">
+            <h4>1. Datos personales (Identificación)</h4>
+            <div class="mb-3">
+              <label>Tipo de documento</label>
+              <select name="tipoDocumento" class="form-control" id="tipoDocumento" required>
+                <option value="">Seleccione un tipo de documento</option>
+                <option value="CC">Cédula de ciudadanía</option>
+                <option value="CE">Cédula de extranjería</option>
+                <option value="TI">Tarjeta de identidad</option>
+                <option value="PA">Pasaporte</option>
+              </select>
+            </div>
+            <label for="numeroDocumento">Número de documento</label>
+            <input type="text" name="numeroDocumento" class="form-control" id="numeroDocumento" placeholder="Digite su identificación" required>
+
+            <button type="button" class="btn btn-primary" onclick="siguientePaso(2)">Validar</button>
+          </div>
+          
+          <!--============ PASO 2 ===========-->
+          <div id="paso-2" class="paso-seccion">
+            <h4>2. Datos personales y Nombres</h4>
+            <p class="text-muted">Por favor, ingrese sus datos personales y nombres.</p>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label>Digite su primer nombre</label>
+                <input type="text" name="primerNombre" class="form-control" id="primerNombre" placeholder="Digite su primer nombre" required>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label>Digite su segundo nombre</label>
+                <input type="text" name="segundoNombre" class="form-control" id="segundoNombre" placeholder="Digite su segundo nombre" required>
+              </div>
+
+
+              <div class="col-md-6 mb-3">
+                <label>Digite su nombre completo</label>
+                <input type="text" name="primerApellido" class="form-control" id="primerApellido" placeholder="Digite su primer apellido" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label>Digite su segundo apellido</label>
+                <input type="text" name="segundoApellido" class="form-control" id="segundoApellido" placeholder="Digite su segundo apellido" required>
+              </div>
+              
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="pasoAnterior(1)">Atras</button>
+            <button type="button" class="btn btn-secondary" onclick="siguientePaso(2)">Siguiente</button>
+
+          </div>
+
+          <!--============ PASO 3 ===========-->
+          <div id="paso-3" class="paso-seccion oculto">
+            <h4>3. Correo electronico</h4>
+            <div class="mb-3">
+              <label>Correo electrónico</label>
+              <input type="email" name="correoElectronico" class="form-control" id="correo" placeholder="Digite su correo electrónico" required>
+            </div>
+            <br>
+            <div class="mb-3">
+              <label>Confirmar Correo electrónico</label>
+              <input type="email" name="confirmaCorreo" class="form-control" id="confirmaCorreo" placeholder="Confirme su correo electrónico" required>
+            </div>
+            <br>
+            <button type="button" class="btn btn-secondary" onclick="siguienteAnterior(2)">Atras</button>
+            <button type="button" class="btn btn-success">Finalizar Registro</button>
+          </div>
+        </form>       
+      </div>
+    </main>
+
+    <%- include("Partials/footer") %>
+
+
+    <script>
+      function siguientePaso(pasoDestino) {
+        // Ocultar todos los pasos
+        const pasos = document.querySelectorAll('.paso-seccion');
+        pasos.forEach(p => p.classList.add('oculto'));
+
+      }
+        
+        // Mostrar el paso actual
+
+        if (pasoDestino === 2) {
+          const doc = document.getElementById('numeroDocumento').value;
+          if (!doc) {
+            alert('Por favor, ingrese su número de documento.');
+            return;
+          }
+        }
+
+    </script>
+      
+    
+
+  </body>
+</html>
